@@ -85,7 +85,7 @@ while True:
                 tamañoLista = 0
                 total_ventas = 0
                 while tamañoLista < len(diccionario_ventas[folio]):
-                    total_ventas = (int(cantidad_pzas) * int(precio_venta) + total_ventas
+                    total_ventas = (int(precio_venta) * int(cantidad_pzas)) + total_ventas
                     tamañoLista = tamañoLista + 1
                 print(f"Total de las ventas: {total_ventas}")
                 print(f"El iva aplicable es de: {total_ventas * .16}")
@@ -106,7 +106,7 @@ while True:
             while tamañoLista < len(diccionario_ventas[busqueda]):
                 ingresoDatos(busqueda, tamañoLista)
                 print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,descripcionI,cantidad,precio,Fecha))
-                total_ventas = (int(diccionario_ventas[busqueda][tamañoLista].precio_venta) * int(diccionario_ventas[busqueda][tamañoLista].cantidad_pzas)) + total_ventas
+                total_ventas = (int(precio) * int(cantidad)) + total_ventas
                 tamañoLista = tamañoLista + 1
             print(f"Total de las ventas: {total_ventas}")
             print(f"El iva aplicable es de: {total_ventas * .16}")
