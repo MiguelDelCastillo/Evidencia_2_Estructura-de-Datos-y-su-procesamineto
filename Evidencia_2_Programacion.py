@@ -85,7 +85,7 @@ while True:
                 tamañoLista = 0
                 total_ventas = 0
                 while tamañoLista < len(diccionario_ventas[folio]):
-                    total_ventas = (int(diccionario_ventas[folio][tamañoLista].precio_venta) * int(diccionario_ventas[folio][tamañoLista].cantidad_pzas)) + total_ventas
+                    total_ventas = (int(cantidad_pzas) * int(precio_venta) + total_ventas
                     tamañoLista = tamañoLista + 1
                 print(f"Total de las ventas: {total_ventas}")
                 print(f"El iva aplicable es de: {total_ventas * .16}")
@@ -114,7 +114,7 @@ while True:
             print("**********************************************\n")
         else:
             print("La clave no esta registrada")
-                            
+            
     elif respuesta == 3:
         
         with open("datosprueba.csv","w",newline="") as archivo:
@@ -127,7 +127,8 @@ while True:
                 while tamañoLista < len(Lista):
                     # Asignacion de valores
                     ingresoDatos(folio, tamañoLista)
-                    #Grabado en el CSV
+                    
+                    # Grabado en el CSV
                     grabador.writerows([[folio, descripcionI, cantidad, precio, Fecha]])
                     tamañoLista = tamañoLista + 1
             print("*"*20)
@@ -145,13 +146,13 @@ while True:
                     
                     ingresoDatos(folio, tLista)
                     print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(folio,descripcionI,cantidad,precio,Fecha))
-                    total_ventas = (int(diccionario_ventas[folio][tLista].precio_venta) * int(diccionario_ventas[folio][tLista].cantidad_pzas)) + total_ventas
+                    total_ventas = (int(precio) * int(cantidad)) + total_ventas
                 
                 tLista = tLista + 1
         print(f"Total de las ventas: {total_ventas}")
         print(f"El iva aplicable es de: {total_ventas * .16}")
         print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
-              
+
     elif respuesta == 5:
         print("Finalizando")
         break
