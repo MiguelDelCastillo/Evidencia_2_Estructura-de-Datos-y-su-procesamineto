@@ -1,13 +1,5 @@
 from collections import namedtuple
 import csv
-import pandas as pd
-
-def ingresoDatos(x,y):
-    global descripcionI,cantidad,precio,Fecha
-    descripcionI = diccionario_ventas[x][y].descripcion
-    cantidad = diccionario_ventas[x][y].cantidad_pzas
-    precio = diccionario_ventas[x][y].precio_venta
-    Fecha = diccionario_ventas[x][y].fecha
 
 Datos = namedtuple("Ventas",("descripcion", "cantidad_pzas","precio_venta", "fecha"))
 lista_ventas = []
@@ -28,8 +20,7 @@ try:
                 
             if int(folio) == folioNuevo:
                 ventas = Datos(descripcion,CantidadPzas, PrecioVenta, FechaVenta)
-                lista_ventas.append(ventas)
-                
+                lista_ventas.append(ventas)   
             else:
                 lista_ventas = []
                 ventas = Datos(descripcion,CantidadPzas, PrecioVenta, FechaVenta)
@@ -82,11 +73,9 @@ while True:
             
             # En caso de que no quiera seguir agregando
             if (respuesta1 != 1):
-                tamañoLista = 0
                 total_ventas = 0
-                while tamañoLista < len(diccionario_ventas[folio]):
-                    total_ventas = (int(precio_venta) * int(cantidad_pzas)) + total_ventas
-                    tamañoLista = tamañoLista + 1
+                for v in diccionario_ventas[folio]:
+                    total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
                 print(f"Total de las ventas: {total_ventas}")
                 print(f"El iva aplicable es de: {total_ventas * .16}")
                 print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
@@ -95,19 +84,15 @@ while True:
     elif respuesta == 2:
         #Insercion de la busqueda
         busqueda = int(input("Ingresa el folio de la venta a buscar: "))
-        tamañoLista = 0
         total_ventas = 0
-        
         #Iteracion de la busqueda
         if busqueda in diccionario_ventas.keys():
             print(f"\nFolio de la venta: {busqueda}")
             print("*"*90)
             print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))
-            while tamañoLista < len(diccionario_ventas[busqueda]):
-                ingresoDatos(busqueda, tamañoLista)
-                print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,descripcionI,cantidad,precio,Fecha))
-                total_ventas = (int(precio) * int(cantidad)) + total_ventas
-                tamañoLista = tamañoLista + 1
+            for v in diccionario_ventas[busqueda]:
+                print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha))
+                total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
             print(f"Total de las ventas: {total_ventas}")
             print(f"El iva aplicable es de: {total_ventas * .16}")
             print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
@@ -121,34 +106,22 @@ while True:
             total_ventas = 0
             grabador = csv.writer(archivo)
             grabador.writerow(("Folio","Descripcion","CanitdadPzas","PrecioVenta","FechaVenta"))
-            
-            for folio , Lista  in diccionario_ventas.items():
-                tamañoLista = 0
-                while tamañoLista < len(Lista):
-                    # Asignacion de valores
-                    ingresoDatos(folio, tamañoLista)
-                    
-                    # Grabado en el CSV
-                    grabador.writerows([[folio, descripcionI, cantidad, precio, Fecha]])
-                    tamañoLista = tamañoLista + 1
+            for datos in diccionario_ventas:
+                for v in diccionario_ventas[datos]:
+                    grabador.writerows([[datos,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha]])
             print("*"*20)
             print(f"\nCargado Exitosamente \n")
             print("*"*20)
     
     elif respuesta == 4:
         busqueda = input('\nIngrese la fecha a buscar: ')
-        print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))
+        print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))         
         total_ventas = 0
-        for folio, lista in diccionario_ventas.items():
-            tLista = 0
-            while tLista < len(lista):
-                if diccionario_ventas[folio][tLista].fecha == busqueda:
-                    
-                    ingresoDatos(folio, tLista)
-                    print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(folio,descripcionI,cantidad,precio,Fecha))
-                    total_ventas = (int(precio) * int(cantidad)) + total_ventas
-                
-                tLista = tLista + 1
+        for datos in diccionario_ventas:
+            for v in diccionario_ventas[datos]:
+                if v.fecha == busqueda:
+                    print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(datos,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha))
+                    total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
         print(f"Total de las ventas: {total_ventas}")
         print(f"El iva aplicable es de: {total_ventas * .16}")
         print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
