@@ -94,7 +94,7 @@ while True:
                 
     elif respuesta == 2:
         #Insercion de la busqueda
-        busqueda = int(input("Ingresa la clave a buscar: "))
+        busqueda = int(input("Ingresa el folio de la venta a buscar: "))
         tamañoLista = 0
         total_ventas = 0
         
