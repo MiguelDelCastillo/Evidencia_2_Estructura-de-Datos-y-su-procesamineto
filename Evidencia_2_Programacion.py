@@ -89,7 +89,7 @@ while True:
         if busqueda in diccionario_ventas.keys():
             print(f"\nFolio de la venta: {busqueda}")
             print("*"*90)
-            print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))
+            print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Cantidad","Precio Unitario","Fecha"))
             for items in diccionario_ventas[busqueda]:
                 print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,items.descripcion,items.cantidad_pzas,items.precio_venta,items.fecha))
                 total_ventas = (int(items.precio_venta) * int(items.cantidad_pzas)) + total_ventas
@@ -105,7 +105,7 @@ while True:
         with open("datosprueba.csv","w",newline="") as archivo:
             total_ventas = 0
             grabador = csv.writer(archivo)
-            grabador.writerow(("Folio","Descripcion","CanitdadPzas","PrecioVenta","FechaVenta"))
+            grabador.writerow(("Folio","Descripcion","CantidadPzas","PrecioVenta","FechaVenta"))
             for datos in diccionario_ventas:
                 for items in diccionario_ventas[datos]:
                     grabador.writerows([[datos,items.descripcion,items.cantidad_pzas,items.precio_venta,items.fecha]])
@@ -115,7 +115,7 @@ while True:
     
     elif respuesta == 4:
         busqueda = input('\nIngrese la fecha a buscar: ')
-        print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))         
+        print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Cantidad","Precio Unitario","Fecha"))         
         total_ventas = 0
         for datos in diccionario_ventas:
             for items in diccionario_ventas[datos]:
