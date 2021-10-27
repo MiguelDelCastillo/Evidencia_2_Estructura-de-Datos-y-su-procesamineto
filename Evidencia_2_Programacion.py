@@ -74,8 +74,8 @@ while True:
             # En caso de que no quiera seguir agregando
             if (respuesta1 != 1):
                 total_ventas = 0
-                for v in diccionario_ventas[folio]:
-                    total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
+                for items in diccionario_ventas[folio]:
+                    total_ventas = (int(items.precio_venta) * int(items.cantidad_pzas)) + total_ventas
                 print(f"Total de las ventas: {total_ventas}")
                 print(f"El iva aplicable es de: {total_ventas * .16}")
                 print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
@@ -90,9 +90,9 @@ while True:
             print(f"\nFolio de la venta: {busqueda}")
             print("*"*90)
             print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))
-            for v in diccionario_ventas[busqueda]:
-                print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha))
-                total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
+            for items in diccionario_ventas[busqueda]:
+                print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(busqueda,items.descripcion,items.cantidad_pzas,items.precio_venta,items.fecha))
+                total_ventas = (int(items.precio_venta) * int(items.cantidad_pzas)) + total_ventas
             print(f"Total de las ventas: {total_ventas}")
             print(f"El iva aplicable es de: {total_ventas * .16}")
             print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
@@ -107,8 +107,8 @@ while True:
             grabador = csv.writer(archivo)
             grabador.writerow(("Folio","Descripcion","CanitdadPzas","PrecioVenta","FechaVenta"))
             for datos in diccionario_ventas:
-                for v in diccionario_ventas[datos]:
-                    grabador.writerows([[datos,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha]])
+                for items in diccionario_ventas[datos]:
+                    grabador.writerows([[datos,items.descripcion,items.cantidad_pzas,items.precio_venta,items.fecha]])
             print("*"*20)
             print(f"\nCargado Exitosamente \n")
             print("*"*20)
@@ -118,10 +118,10 @@ while True:
         print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format("Folio","Descripcion","Canitdad","Precio Unitario","Fecha"))         
         total_ventas = 0
         for datos in diccionario_ventas:
-            for v in diccionario_ventas[datos]:
-                if v.fecha == busqueda:
-                    print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(datos,v.descripcion,v.cantidad_pzas,v.precio_venta,v.fecha))
-                    total_ventas = (int(v.precio_venta) * int(v.cantidad_pzas)) + total_ventas
+            for items in diccionario_ventas[datos]:
+                if items.fecha == busqueda:
+                    print("{0:<10} {1:<20} {2:<20} {3:<20} {4:<20}".format(datos,items.descripcion,items.cantidad_pzas,items.precio_venta,items.fecha))
+                    total_ventas = (int(items.precio_venta) * int(items.cantidad_pzas)) + total_ventas
         print(f"Total de las ventas: {total_ventas}")
         print(f"El iva aplicable es de: {total_ventas * .16}")
         print(f"El total con iva aplicado es de: {round(total_ventas*1.16, 2)}")
